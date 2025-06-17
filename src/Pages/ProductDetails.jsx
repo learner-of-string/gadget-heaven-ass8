@@ -5,15 +5,28 @@ import "@smastrom/react-rating/style.css";
 import { Button } from "@/Components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { Heart } from "lucide-react";
+import { toast } from "sonner";
 
 const ProductDetails = () => {
     const { slug } = useParams();
 
     const product = products.find((product) => product.slug === slug);
 
+    const handleAddToCart = () => {
+        toast.success(
+            `${product.name} added to cart but you can't see it right now`
+        );
+    };
+
+    const handleAddToWishlist = () => {
+        toast.success(
+            `${product.name} added to wishlist but you can't see it right now`
+        );
+    };
+
     return (
-        <div>
-            <div className="bg-purple-600 pt-8 px-60">
+        <div className="pb-20">
+            <div className="bg-purple-600 pt-8 px-60 pb-40">
                 <h1 className="text-3xl font-bold text-center text-white">
                     Product Details
                 </h1>
@@ -23,9 +36,13 @@ const ProductDetails = () => {
                     accessories, we have it all!
                 </p>
             </div>
-            <div className="flex flex-col md:flex-row">
-                <div>
-                    <img src={product.img} alt={product.name} />
+            <div className="flex flex-col md:flex-row gap-8 w-3/4 mx-auto bg-white rounded-2xl p-8 -mt-32 mb-10">
+                <div className="w-1/2">
+                    <img
+                        src={product.img}
+                        alt={product.name}
+                        className="object-cover rounded-2xl"
+                    />
                 </div>
                 <div className="flex flex-col gap-6">
                     <div className="flex flex-col gap-4">
@@ -81,10 +98,17 @@ const ProductDetails = () => {
                         </div>
                     </div>
                     <div className="flex gap-4">
-                        <Button className="flex items-center gap-2 bg-purple-600 text-white font-bold">
+                        <Button
+                            onClick={handleAddToCart}
+                            className="flex items-center gap-2 bg-purple-600 text-white font-bold"
+                        >
                             Add to Cart <ShoppingCart />
                         </Button>
-                        <Button variant="outline" className="rounded-full">
+                        <Button
+                            variant="outline"
+                            className="rounded-full"
+                            onClick={handleAddToWishlist}
+                        >
                             <Heart />
                         </Button>
                     </div>

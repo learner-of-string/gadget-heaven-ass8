@@ -54,7 +54,7 @@ const products = [
     {
         slug: "m4-air-mac",
         name: "M4 Air MacBook",
-        img: "https://www.apple.com/v/macbook-air/specs/a/images/specs/15-inch/mba_15_hero__efr42k7vv24i_large.jpg",
+        img: "https://techtoro.io/image/cache/catalog/Blogs/macbook%20m4%20news/mac-air-m4-1920x1080.jpg",
         category: "laptop",
         price: 149999,
         description: "M4 Air MacBook, 13-inch, 16GB RAM, 256GB SSD",
