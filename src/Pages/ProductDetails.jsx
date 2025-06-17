@@ -6,6 +6,7 @@ import { Button } from "@/Components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
+import secureLocalStorage from "react-secure-storage";
 
 const ProductDetails = () => {
     const { slug } = useParams();
@@ -13,15 +14,42 @@ const ProductDetails = () => {
     const product = products.find((product) => product.slug === slug);
 
     const handleAddToCart = () => {
-        toast.success(
-            `${product.name} added to cart but you can't see it right now`
+        if (!product.available) {
+            toast.error(`${product.name} is currently out of stock`);
+            return;
+        }
+
+        const currentCart = JSON.parse(
+            secureLocalStorage.getItem("gadgetHeavenCart") || "[]"
         );
+        if (!currentCart.includes(product.slug)) {
+            secureLocalStorage.setItem(
+                "gadgetHeavenCart",
+                JSON.stringify([...currentCart, product.slug])
+            );
+            toast.success(
+                `${product.name} added to cart, check dashboard to confirm your purchase`
+            );
+        } else {
+            toast.error(`${product.name} is already in your cart`);
+        }
     };
 
     const handleAddToWishlist = () => {
-        toast.success(
-            `${product.name} added to wishlist but you can't see it right now`
+        const currentWishlist = JSON.parse(
+            secureLocalStorage.getItem("gadgetHeavenWishlist") || "[]"
         );
+        if (!currentWishlist.includes(product.slug)) {
+            secureLocalStorage.setItem(
+                "gadgetHeavenWishlist",
+                JSON.stringify([...currentWishlist, product.slug])
+            );
+            toast.success(
+                `${product.name} added to wishlist but you can't see it right now`
+            );
+        } else {
+            toast.error(`${product.name} is already in your wishlist`);
+        }
     };
 
     return (
