@@ -31,7 +31,6 @@ const Footer = () => {
                 <nav>
                     <Link>Privacy Policy</Link>
                     <Link>Terms of Service</Link>
-                    <Link>Privacy Policy</Link>
                     <Link>Cookie Policy</Link>
                 </nav>
                 <nav>
