@@ -1,5 +1,5 @@
 import products from "@/Constants/db";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 

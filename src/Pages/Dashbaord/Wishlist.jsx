@@ -44,13 +44,23 @@ const Wishlist = () => {
             return;
         }
 
-        const currentCart = JSON.parse(
-            secureLocalStorage.getItem("gadgetHeavenCart") || "[]"
-        );
-        if (!currentCart.includes(slug)) {
+        try {
+            const currentCart = JSON.parse(
+                secureLocalStorage.getItem("gadgetHeavenCart") || "[]"
+            );
+            if (!currentCart.includes(slug)) {
+                secureLocalStorage.setItem(
+                    "gadgetHeavenCart",
+                    JSON.stringify([...currentCart, slug])
+                );
+            }
+        } catch (error) {
+            console.error("Error parsing cart data:", error);
+            // If there's invalid data, clear it and start fresh
+            secureLocalStorage.removeItem("gadgetHeavenCart");
             secureLocalStorage.setItem(
                 "gadgetHeavenCart",
-                JSON.stringify([...currentCart, slug])
+                JSON.stringify([slug])
             );
         }
 

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import products from "@/Constants/db";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
