@@ -17,7 +17,7 @@ const Hero = () => {
                 </p>
             </div>
             <div className="flex items-center justify-center">
-                <div className="border-4 border-white p-2 md:p-5 rounded-2xl flex justify-center w-3/6 mx-auto md:-mt-64 -mt-24 shadow-2xl shadow-gray-400">
+                <div className="border-4 border-white p-2 md:p-5 rounded-2xl flex justify-center md:w-1/2 w-2/3 mx-auto md:-mt-64 -mt-24 shadow-2xl shadow-gray-400">
                     <img
                         src={bannerImg}
                         alt="idk what is this"

@@ -5,16 +5,29 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 const NavBar = () => {
+    const getNavLinkClass = ({ isActive }) =>
+        `transition-all duration-200 hover:text-purple-600 ${
+            isActive
+                ? "text-purple-600 font-semibold bg-purple-50 px-3 py-2 rounded-lg"
+                : "text-gray-600"
+        }`;
+
     const navLinks = (
         <>
             <li>
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="/" className={getNavLinkClass}>
+                    Home
+                </NavLink>
             </li>
             <li>
-                <NavLink to="/statistics">Statistics</NavLink>
+                <NavLink to="/statistics" className={getNavLinkClass}>
+                    Statistics
+                </NavLink>
             </li>
             <li>
-                <NavLink to="/dashboard">Dashboard</NavLink>
+                <NavLink to="/dashboard" className={getNavLinkClass}>
+                    Dashboard
+                </NavLink>
             </li>
         </>
     );
