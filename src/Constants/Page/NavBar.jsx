@@ -1,7 +1,8 @@
 import { Heart } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const NavBar = () => {
     const navLinks = (
@@ -50,16 +51,27 @@ const NavBar = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <a className="text-xl font-semibold">Gadget Heaven</a>
+                <Link to="/" className="text-base md:text-xl font-semibold">
+                    Gadget Heaven
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">{navLinks}</ul>
             </div>
             <div className="navbar-end">
-                <Button variant="ghost">
-                    <ShoppingCart />
-                </Button>
-                <Button variant="ghost">
+                <Link to="/dashboard">
+                    <Button variant="ghost">
+                        <ShoppingCart />
+                    </Button>
+                </Link>
+                <Button
+                    variant="ghost"
+                    onClick={() =>
+                        toast.error(
+                            "How dare you click me?😤Shut up and go to dashboard"
+                        )
+                    }
+                >
                     <Heart />
                 </Button>
             </div>

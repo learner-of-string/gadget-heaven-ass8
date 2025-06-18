@@ -12,10 +12,17 @@ const Cart = () => {
     const [cartItemsSlug, setCartItemsSlug] = useState([]);
 
     useEffect(() => {
-        const items = JSON.parse(
-            secureLocalStorage.getItem("gadgetHeavenCart") || "[]"
-        );
-        setCartItemsSlug(items);
+        try {
+            const items = JSON.parse(
+                secureLocalStorage.getItem("gadgetHeavenCart") || "[]"
+            );
+            setCartItemsSlug(items);
+        } catch (error) {
+            console.error("Error parsing cart data:", error);
+            // If there's invalid data, clear it and start fresh
+            secureLocalStorage.removeItem("gadgetHeavenCart");
+            setCartItemsSlug([]);
+        }
     }, []);
 
     const cartItems = cartItemsSlug
@@ -65,12 +72,12 @@ const Cart = () => {
 
     return (
         <div className="w-11/12 mx-auto py-10">
-            <div className="flex justify-between items-center mb-5">
-                <h2 className="text-2xl font-bold">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-5">
+                <h2 className="text-base md:text-2xl font-bold">
                     Cart({cartItemsSlug.length})
                 </h2>
                 <div className="flex items-center gap-4">
-                    <p className="font-bold text-2xl">
+                    <p className="font-bold text-base md:text-2xl">
                         Total cost: $
                         {cartItems.reduce(
                             (acc, item) => acc + (item?.price || 0),

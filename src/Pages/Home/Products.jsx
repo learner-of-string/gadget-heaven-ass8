@@ -1,24 +1,43 @@
 import products from "@/Constants/db";
 import { Button } from "@/Components/ui/button";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Products = () => {
+    const [selectedCategory, setSelectedCategory] = useState("All Products");
+
     const allCategories = [
         "All Products",
         ...new Set(products.map((product) => product.category)),
     ];
 
+    const filteredProducts =
+        selectedCategory === "All Products"
+            ? products
+            : products.filter(
+                  (product) => product.category === selectedCategory
+              );
+
+    const handleCategoryClick = (category) => {
+        setSelectedCategory(category);
+    };
+
     return (
-        <div className="py-10">
-            <h1 className="font-bold text-4xl text-center text-neutral-950">
+        <div className="py-10 px-4 md:px-0">
+            <h1 className="font-bold text-2xl md:text-4xl text-center text-neutral-950">
                 Explore Cutting-Edge Gadgets
             </h1>
-            <div className="grid md:grid-cols-4 grid-cols-1 w-11/12 gap-10 mx-auto my-12">
+            <div className="grid md:grid-cols-4 grid-cols-1 w-11/12 gap-4 md:gap-10 mx-auto my-12">
                 <div className="flex flex-col gap-4">
                     {allCategories.map((category, id) => (
                         <div
                             key={id}
-                            className="px-4 py-2 rounded-md bg-gray-950/10 cursor-pointer hover:bg-gray-950/20 transition-all duration-300"
+                            onClick={() => handleCategoryClick(category)}
+                            className={`px-4 py-2 rounded-md cursor-pointer transition-all duration-300 ${
+                                selectedCategory === category
+                                    ? "bg-purple-600 text-white"
+                                    : "bg-gray-950/10 hover:bg-gray-950/20"
+                            }`}
                         >
                             <p className="font-medium text-center">
                                 {category}
@@ -27,7 +46,7 @@ const Products = () => {
                     ))}
                 </div>
                 <div className="col-span-3 grid md:grid-cols-3 grid-cols-1 gap-8">
-                    {products.map((product) => (
+                    {filteredProducts.map((product) => (
                         <div
                             key={product.slug}
                             className="bg-white p-5 flex flex-col gap-3 rounded-3xl"

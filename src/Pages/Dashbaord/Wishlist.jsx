@@ -9,10 +9,16 @@ const Wishlist = () => {
     const [wishlistItemsSlug, setWishCartItemsSlug] = useState([]);
 
     useEffect(() => {
-        const items = JSON.parse(
-            secureLocalStorage.getItem("gadgetHeavenWishlist") || "[]"
-        );
-        setWishCartItemsSlug(items);
+        try {
+            const items = JSON.parse(
+                secureLocalStorage.getItem("gadgetHeavenWishlist") || "[]"
+            );
+            setWishCartItemsSlug(items);
+        } catch (error) {
+            console.error("Error parsing wishlist data:", error);
+            secureLocalStorage.removeItem("gadgetHeavenWishlist");
+            setWishCartItemsSlug([]);
+        }
     }, []);
 
     const cartItems = wishlistItemsSlug.map((item) => {
@@ -63,7 +69,7 @@ const Wishlist = () => {
     return (
         <div className="w-11/12 mx-auto py-10">
             <div className="flex justify-between items-center mb-5">
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-base md:text-2xl font-bold">
                     Wishlist({wishlistItemsSlug.length})
                 </h2>
             </div>
